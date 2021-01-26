@@ -5,7 +5,11 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +63,18 @@ public class MainActivity extends AppCompatActivity {
         rcvRecentSong.setItemAnimator(new DefaultItemAnimator());
         SongAdapter adapterSing = new SongAdapter(getApplicationContext(), getListSong());
         rcvRecentSong.setAdapter(adapterSing);
+
+
+        //Demonstrate
+
+        ImageView next = (ImageView) findViewById(R.id.btn_temp);
+        next.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent myIntent = new Intent(view.getContext(), PlayerActivity.class);
+                startActivityForResult(myIntent, 0);
+            }
+
+        });
     }
     private List<Song> getListSong() {
 
