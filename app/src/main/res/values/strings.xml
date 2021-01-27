@@ -6,4 +6,6 @@
     <string name="the_album">The Album</string>
     <string name="blackpink">BLACKPINK</string>
     <string name="now_playing">now playing</string>
+    <string name="play">PLAY</string>
+    <string name="shuffle">shuffle</string>
 </resources>
