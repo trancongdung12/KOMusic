@@ -32,7 +32,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.CategoryHolder
 
     @Override
     public void onBindViewHolder(@NonNull CategoryHolder holder, int position) {
-        holder.img_view.setImageResource(mSongs.get(position).getResourceId());
+        holder.img_view.setImageResource(mSongs.get(position).getImage());
         holder.tx_view.setText(mSongs.get(position).getTitle());
     }
 
