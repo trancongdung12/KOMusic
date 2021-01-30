@@ -1,11 +1,16 @@
 package com.example.komusic;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
         rcvPlaylist = findViewById(R.id.rycPlaylist);
         int banner[] = {R.drawable.banner1,R.drawable.banner2, R.drawable.banner3, R.drawable.banner4, R.drawable.banner5};
         arrayList = new ArrayList<>();
+
+        //Bottom navigation
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         rcvPlaylist.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false));
         rcvPlaylist.setItemAnimator(new DefaultItemAnimator());
@@ -72,4 +81,17 @@ public class MainActivity extends AppCompatActivity {
 
         return list;
     }
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                    switch (item.getItemId()){
+//                        case R.id.nav_home:
+//                            Intent myIntent = new Intent(MainActivity.this, IntroActivity.class);
+//                            startActivityForResult(myIntent, 0);
+//                            break;
+//                    }
+                    return true;
+                }
+            };
 }
