@@ -21,13 +21,13 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SongRecyclerviewInterface {
     private RecyclerView rcvPlaylist;
     private RecyclerView rcvRecentSong;
     ArrayList<Playlist> arrayList;
     ArrayList<Song> arrayListSong;
     DB helper;
-
+    private SongRecyclerviewInterface songRecyclerviewInterface;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,22 +74,22 @@ public class MainActivity extends AppCompatActivity {
         rcvRecentSong = findViewById(R.id.rycRecentSong);
         rcvRecentSong.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false));
         rcvRecentSong.setItemAnimator(new DefaultItemAnimator());
-        SongAdapter adapterSong = new SongAdapter(getApplicationContext(), getListSong());
+        SongAdapter adapterSong = new SongAdapter( getListSong(), this);
         rcvRecentSong.setAdapter(adapterSong);
 
         //made for you
         rcvRecentSong = findViewById(R.id.rycMadeForYou);
         rcvRecentSong.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false));
         rcvRecentSong.setItemAnimator(new DefaultItemAnimator());
-        SongAdapter adapterForYou = new SongAdapter(getApplicationContext(), getListSong());
+        SongAdapter adapterForYou = new SongAdapter( getListSong(), this);
         rcvRecentSong.setAdapter(adapterForYou);
 
         //singer
         rcvRecentSong = findViewById(R.id.rycSinger);
         rcvRecentSong.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false));
         rcvRecentSong.setItemAnimator(new DefaultItemAnimator());
-        SongAdapter adapterSing = new SongAdapter(getApplicationContext(), getListSong());
-        rcvRecentSong.setAdapter(adapterSing);
+        SongAdapter adapterSinger = new SongAdapter( getListSong(), this);
+        rcvRecentSong.setAdapter(adapterSinger);
 
 
         //Demonstrate
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView next = (ImageView) findViewById(R.id.btn_temp);
         next.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent myIntent = new Intent(view.getContext(), PlayerActivity.class);
+                Intent myIntent = new Intent(view.getContext(), Player.class);
                 startActivityForResult(myIntent, 0);
             }
 
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                             startActivityForResult(home, 0);
                             break;
                         case R.id.nav_explore:
-                            Intent explore = new Intent(MainActivity.this, PlayerActivity.class);
+                            Intent explore = new Intent(MainActivity.this, Player.class);
                             startActivityForResult(explore, 0);
                             break;
                         case R.id.nav_collection:
@@ -142,5 +142,12 @@ public class MainActivity extends AppCompatActivity {
                 "phúc", "Ngày hạnh phúc huhuhuhu");
         helper.insertSong ("Ngày hạnh", R.drawable.song, "Ngày hạnh phúc",
                 "hanh", "Ngày hạnh phúc huhuhuhu");
+    }
+
+    @Override
+    public void onItemClick() {
+        Toast.makeText(this, "run", Toast.LENGTH_SHORT).show();
+        Intent playMusic = new Intent(this, Player.class);
+        startActivityForResult(playMusic, 0);
     }
 }

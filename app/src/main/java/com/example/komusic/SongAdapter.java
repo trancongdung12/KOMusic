@@ -15,18 +15,18 @@ import java.util.List;
 
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.CategoryHolder> {
 
-    private Context mContext;
+    private SongRecyclerviewInterface songRecyclerviewInterface;
     private  List<Song> mSongs;
 
-    public SongAdapter(Context mContext, List<Song> mSongs) {
-        this.mContext = mContext;
+    public SongAdapter(List<Song> mSongs, SongRecyclerviewInterface songRecyclerviewInterface) {
         this.mSongs = mSongs;
+        this.songRecyclerviewInterface = songRecyclerviewInterface;
     }
 
     @NonNull
     @Override
     public CategoryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.recentsong, parent, false);
+        View view = LayoutInflater.from((Context) songRecyclerviewInterface).inflate(R.layout.recentsong, parent, false);
         return new CategoryHolder(view);
     }
 
@@ -52,6 +52,13 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.CategoryHolder
 
             img_view = itemView.findViewById(R.id.img_category);
             tx_view = itemView.findViewById(R.id.title);
+           itemView.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   songRecyclerviewInterface.onItemClick();
+               }
+           });
+
         }
     }
 }

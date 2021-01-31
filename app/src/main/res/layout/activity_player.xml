@@ -84,16 +84,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
     <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:id="@+id/back_screen"
+        android:layout_width="23dp"
+        android:layout_height="27dp"
         android:layout_marginStart="20dp"
         android:contentDescription="@string/app_name"
         android:rotation="-90"
         android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
         app:layout_constraintBottom_toBottomOf="@id/txt_now_playing"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/txt_now_playing"/>
+        app:layout_constraintTop_toTopOf="@id/txt_now_playing" />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/player_layout"
         android:layout_width="match_parent"
