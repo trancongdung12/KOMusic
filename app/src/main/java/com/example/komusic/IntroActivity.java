@@ -7,13 +7,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class IntroActivity extends AppCompatActivity {
+import java.util.List;
 
+public class IntroActivity extends AppCompatActivity {
+    DB helperAcc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
         Button login = (Button) findViewById(R.id.login);
+
+        helperAcc = new DB(getApplicationContext());
+
+        if(getListAccount().size()<=0){
+            renderAccount();
+        }
+
         Intent loginScreen = new Intent(IntroActivity.this, Login.class);
         login.setOnClickListener( new View.OnClickListener() {
 
@@ -33,4 +42,17 @@ public class IntroActivity extends AppCompatActivity {
             }
         });
     }
+    private void renderAccount (){
+        helperAcc.insertAccount ("hung", "nguyen", "0987065054",
+                "hungnguyen@gmail.com", "hung","hunghung");
+        helperAcc.insertAccount ("long", "nguyen", "0987065054",
+                "hungnguyen1@gmail.com", "long","longlong");
+    }
+    private List<Account> getListAccount() {
+        List<Account> list = helperAcc.getAll();
+        //Toast.makeText(getApplicationContext(),"Hello", Toast.LENGTH_SHORT).show();
+        return list;
+    }
+
+
 }

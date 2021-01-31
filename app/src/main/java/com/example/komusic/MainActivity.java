@@ -34,18 +34,10 @@ public class MainActivity extends AppCompatActivity implements SongRecyclerviewI
         setContentView(R.layout.homepage);
 
         helper = new DB(getApplicationContext());
-
-        helper.insertSong ("Ngày hạnh phúc", R.drawable.song, "Ngày hạnh phúc",
-                "phúc", "Ngày hạnh phúc huhuhuhu");
-        helper.insertSong ("Ngày hạnh", R.drawable.song, "Ngày hạnh phúc",
-                "phúc", "Ngày hạnh phúc huhuhuhu");
-        helper.insertSong ("Ngày phúc", R.drawable.song, "Ngày hạnh phúc",
-                "phúc", "Ngày hạnh phúc huhuhuhu");
-        helper.insertSong ("Ngày", R.drawable.song, "Ngày hạnh phúc",
-                "phúc", "Ngày hạnh phúc huhuhuhu");
-        helper.insertSong ("Ngày hạnh", R.drawable.song, "Ngày hạnh phúc",
-                "hanh", "Ngày hạnh phúc huhuhuhu");
-
+        //fix data for database
+        if(getListSong().size()<=0){
+            renderSong();
+        }
         rcvPlaylist = findViewById(R.id.rycPlaylist);
         int banner[] = {R.drawable.banner1,R.drawable.banner2, R.drawable.banner3, R.drawable.banner4, R.drawable.banner5};
         arrayList = new ArrayList<>();
@@ -125,13 +117,22 @@ public class MainActivity extends AppCompatActivity implements SongRecyclerviewI
                 }
             };
     private List<Song> getListSong() {
-        List<Song> list = helper.getAll();
+        List<Song> list = helper.getAllSong();
         //Toast.makeText(getApplicationContext(),"Hello", Toast.LENGTH_SHORT).show();
         return list;
     }
 
 
-    private void render (){
+
+
+
+    @Override
+    public void onItemClick() {
+        Toast.makeText(this, "run", Toast.LENGTH_SHORT).show();
+        Intent playMusic = new Intent(this, Player.class);
+        startActivityForResult(playMusic, 0);
+    }
+        private void renderSong (){
         helper.insertSong ("Ngày hạnh phúc", R.drawable.song, "Ngày hạnh phúc",
                 "phúc", "Ngày hạnh phúc huhuhuhu");
         helper.insertSong ("Ngày hạnh", R.drawable.song, "Ngày hạnh phúc",
@@ -142,12 +143,5 @@ public class MainActivity extends AppCompatActivity implements SongRecyclerviewI
                 "phúc", "Ngày hạnh phúc huhuhuhu");
         helper.insertSong ("Ngày hạnh", R.drawable.song, "Ngày hạnh phúc",
                 "hanh", "Ngày hạnh phúc huhuhuhu");
-    }
-
-    @Override
-    public void onItemClick() {
-        Toast.makeText(this, "run", Toast.LENGTH_SHORT).show();
-        Intent playMusic = new Intent(this, Player.class);
-        startActivityForResult(playMusic, 0);
     }
 }
