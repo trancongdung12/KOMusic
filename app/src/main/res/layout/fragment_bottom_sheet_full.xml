@@ -65,12 +65,13 @@
                 android:layout_height="16dp" />
 
             <TextView
+                android:id="@+id/txt_lyric_content"
                 style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
-                android:paddingStart="100dp"
-                android:paddingEnd="100dp"
+                android:paddingStart="50dp"
+                android:paddingEnd="50dp"
                 android:text="Lovesick girls
 Lovesick girls
 영원한 밤

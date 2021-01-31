@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -39,7 +40,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.CategoryHolder
             @Override
             public void onClick(View view) {
                 Intent playScreen = new Intent(context, Player.class);
-                playScreen.putExtra("title",mSongs.get(position).getTitle());
+                playScreen.putExtra("id",String.valueOf(mSongs.get(position).getId()));
                 context.startActivity(playScreen);
             }
         });

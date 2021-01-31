@@ -2,8 +2,10 @@ package com.example.komusic;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -14,6 +16,8 @@ import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -28,6 +32,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class Player extends AppCompatActivity {
@@ -37,16 +42,29 @@ public class Player extends AppCompatActivity {
     MediaPlayer mediaPlayer;
     Handler handler = new Handler();
     Runnable runnable;
+    DB helper;
+    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
-
+        helper = new DB(getApplicationContext());
         TextView lyrics = findViewById(R.id.txt_lyrics);
+        //Get Value From Intent
+        Intent intent = getIntent();
+        String id = intent.getStringExtra("id");
+        Toast.makeText(this, id, Toast.LENGTH_SHORT).show();
+        Song song = helper.getData(Integer.parseInt(id));
+
         lyrics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                String myMessage = song.getLyric();
+                bundle.putString("message", myMessage );
+
                 BottomSheetFull bottomSheetFull = new BottomSheetFull();
+                bottomSheetFull.setArguments(bundle);
                 bottomSheetFull.show(getSupportFragmentManager(), bottomSheetFull.getTag());
 
             }
@@ -60,11 +78,12 @@ public class Player extends AppCompatActivity {
             }
 
         });
-        //Get Value From Intent
-        Intent intent = getIntent();
-        String title = intent.getStringExtra("title");
-        TextView textView = findViewById(R.id.txt_artist);
-        textView.setText(title);
+
+        TextView title = findViewById(R.id.txt_title);
+        title.setText(song.getTitle());
+        TextView singer = findViewById(R.id.txt_artist);
+        singer.setText(song.getAuthor());
+        ImageView img = findViewById(R.id.img_song);
 
         //Play music
         playerPositon = findViewById(R.id.player_position);
@@ -90,6 +109,8 @@ public class Player extends AppCompatActivity {
 
         //set time to view
         playerDuration.setText(sDuration);
+        RotateAnimation rotateAnimation = new RotateAnimation(0, 360,RotateAnimation.RELATIVE_TO_SELF, .5f, RotateAnimation.RELATIVE_TO_SELF, .5f);
+        rotateAnimation.setDuration(10000);
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,6 +122,8 @@ public class Player extends AppCompatActivity {
                 mediaPlayer.start();
                 seekBar.setMax(mediaPlayer.getDuration());
                 handler.postDelayed(runnable, 0);
+                rotateAnimation.setRepeatCount(Animation.INFINITE);
+                img.startAnimation(rotateAnimation);
             }
         });
 
@@ -113,6 +136,7 @@ public class Player extends AppCompatActivity {
                 btnPlay.setVisibility(View.VISIBLE);
                 mediaPlayer.pause();
                 handler.removeCallbacks(runnable);
+                img.clearAnimation();
             }
         });
 

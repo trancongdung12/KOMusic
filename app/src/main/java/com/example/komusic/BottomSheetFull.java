@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -36,7 +38,9 @@ public class BottomSheetFull extends BottomSheetDialogFragment {
         appBarLayout = view.findViewById(R.id.appBarLayout);
         linearLayout = view.findViewById(R.id.lyt_linear);
         hideView(appBarLayout);
-
+        String myValue = this.getArguments().getString("message");
+        TextView textView = view.findViewById(R.id.txt_lyric_content);
+        textView.setText(myValue);
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View view, int i) {
