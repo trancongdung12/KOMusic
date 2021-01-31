@@ -91,17 +91,6 @@ public class MainActivity extends AppCompatActivity implements SongRecyclerviewI
         SongAdapter adapterSinger = new SongAdapter( getListSong(), this);
         rcvRecentSong.setAdapter(adapterSinger);
 
-
-        //Demonstrate
-
-        ImageView next = (ImageView) findViewById(R.id.btn_temp);
-        next.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent myIntent = new Intent(view.getContext(), Player.class);
-                startActivityForResult(myIntent, 0);
-            }
-
-        });
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {

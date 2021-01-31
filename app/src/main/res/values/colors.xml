@@ -17,5 +17,6 @@
     <color name="colorBackground">#f3f3f3</color>
     <color name="colorStroke">#bdbdbd</color>
     <color name="colorHint">#ececec</color>
->>>>>>> ngoc
+    <color name="colorTint">#533473</color>
+
 </resources>

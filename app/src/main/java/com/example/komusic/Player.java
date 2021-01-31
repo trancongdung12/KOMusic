@@ -42,6 +42,16 @@ public class Player extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
 
+        TextView lyrics = findViewById(R.id.txt_lyrics);
+        lyrics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomSheetFull bottomSheetFull = new BottomSheetFull();
+                bottomSheetFull.show(getSupportFragmentManager(), bottomSheetFull.getTag());
+
+            }
+        });
+
         //Return screen
         ImageView next = (ImageView) findViewById(R.id.back_screen);
         next.setOnClickListener(new View.OnClickListener() {
