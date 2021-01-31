@@ -110,7 +110,6 @@ public class MainActivity extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
     private List<Song> getListSong() {
         List<Song> list = helper.getAll();

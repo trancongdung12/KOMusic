@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/player_background"
+    android:orientation="vertical"
+    tools:context=".FragmentBottomSheetFull">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/player_background">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/no_border"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingLeft="16dp"
+                android:text="@string/app_name"
+                android:textColor="@color/white"
+                android:textSize="25dp" />
+
+            <ImageView
+                android:id="@+id/btn_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:src="@drawable/ic_baseline_close_24"
+                android:tint="@color/colorTint"
+                app:tint="@color/black" />
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/player_background"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/lyt_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Headline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Lyrics" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:paddingStart="100dp"
+                android:paddingEnd="100dp"
+                android:text="Lovesick girls
+Lovesick girls
+영원한 밤
+창문 없는 방에 우릴 가둔 love (love)
+What can we say
+매번 아파도 외치는 love (love)
+다치고 망가져도 나 뭘 믿고 버티는 거야
+어차피 떠나면 상처투성인 채로 미워하게 될걸
+끝장을 보기 전 끝낼 순 없어
+이 아픔을 기다린 것처럼
+아마 다 잠깐 일지도 몰라
+우린 무얼 찾아서 헤매는 걸까
+But I don't care, I'll do it over and over
+내 세상 속엔 너만 있으면 돼
+We are the lovesick girls
+네 멋대로 내 사랑을 끝낼 순 없어
+We are the lovesick girls
+이 아픔 없인 난 아무 의미가 없어
+But we were born to be alone
+Yeah, we were born to be alone
+Yeah, we were born to be alone
+But why we still looking for love
+No love letters, no X and O's
+No love, never, my exes know
+No diamond rings, that set in stone
+To the left, better left alone
+Didn't wanna be a princess, I'm priceless
+A prince not even on my list
+Love is a drug that I quit
+No doctor could help when I'm lovesick
+아마 다 잠깐일지도 몰라
+우린 무얼 찾아서 헤매는…"
+                android:textColor="@color/black" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>
