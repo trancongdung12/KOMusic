@@ -13,6 +13,10 @@
         <activity android:name=".Search"></activity>
         <activity android:name=".Login"></activity>
         <activity android:name=".MainActivity"></activity>
+        <activity android:name=".CollectionActivity"></activity>
+        <activity
+            android:name=".PlayerActivity"
+            android:theme="@style/FullScreen"></activity>
         <activity android:name=".IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

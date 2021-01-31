@@ -12,6 +12,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import android.content.Intent;
+import android.media.Image;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,23 +90,43 @@ public class MainActivity extends AppCompatActivity {
         rcvRecentSong.setItemAnimator(new DefaultItemAnimator());
         SongAdapter adapterSing = new SongAdapter(getApplicationContext(), getListSong());
         rcvRecentSong.setAdapter(adapterSing);
+
+
+        //Demonstrate
+
+        ImageView next = (ImageView) findViewById(R.id.btn_temp);
+        next.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent myIntent = new Intent(view.getContext(), PlayerActivity.class);
+                startActivityForResult(myIntent, 0);
+            }
+
+        });
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                    switch (item.getItemId()){
-//                        case R.id.nav_home:
-//                            Intent myIntent = new Intent(MainActivity.this, IntroActivity.class);
-//                            startActivityForResult(myIntent, 0);
-//                            break;
-//                    }
+                    switch (item.getItemId()){
+                        case R.id.nav_home:
+                            Intent home = new Intent(MainActivity.this, MainActivity.class);
+                            startActivityForResult(home, 0);
+                            break;
+                        case R.id.nav_explore:
+                            Intent explore = new Intent(MainActivity.this, PlayerActivity.class);
+                            startActivityForResult(explore, 0);
+                            break;
+                        case R.id.nav_collection:
+                            Intent collection = new Intent(MainActivity.this, CollectionActivity.class);
+                            startActivityForResult(collection, 0);
+                            break;
+                    }
                     return true;
                 }
             };
     private List<Song> getListSong() {
         List<Song> list = helper.getAll();
-        Toast.makeText(getApplicationContext(),"Hello", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(),"Hello", Toast.LENGTH_SHORT).show();
         return list;
     }
 
