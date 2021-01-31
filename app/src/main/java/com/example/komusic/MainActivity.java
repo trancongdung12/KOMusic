@@ -27,12 +27,13 @@ public class MainActivity extends AppCompatActivity implements SongRecyclerviewI
     ArrayList<Playlist> arrayList;
     ArrayList<Song> arrayListSong;
     DB helper;
+
     private SongRecyclerviewInterface songRecyclerviewInterface;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.homepage);
-
+        String account_id = getIntent().getStringExtra("account_id");
         helper = new DB(getApplicationContext());
         //fix data for database
         if(getListSong().size()<=0){

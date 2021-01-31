@@ -16,7 +16,7 @@ public class DB extends SQLiteOpenHelper{
     private static final int DATABASE_VERSION = 1;
     private static final String TABLE_SONG = "songs";
     private static final String TABLE_ACCOUNT = "accounts";
-
+    private static final String TABLE_COLLECTION = "collections";
 
 
 
@@ -26,6 +26,7 @@ public class DB extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         db.execSQL(
                 "create table songs " +
                         "(id integer primary key, title text,image int,link text, author text,lyric text)"
@@ -34,6 +35,19 @@ public class DB extends SQLiteOpenHelper{
                 "create table accounts " +
                         "(id integer primary key, firstName text, lastName text,phone text, email text,nickname text, password)"
         );
+        db.execSQL("CREATE TABLE collections(\n" +
+                "   account_id INTEGER,\n" +
+                "   song_id INTEGER,\n" +
+                "   PRIMARY KEY (account_id, song_id),\n" +
+                "   FOREIGN KEY (account_id) \n" +
+                "      REFERENCES accounts (id) \n" +
+                "         ON DELETE CASCADE \n" +
+                "         ON UPDATE NO ACTION,\n" +
+                "   FOREIGN KEY (song_id) \n" +
+                "      REFERENCES songs (song_id) \n" +
+                "         ON DELETE CASCADE \n" +
+                "         ON UPDATE NO ACTION\n" +
+                ")");
     }
 
     @Override
@@ -103,8 +117,43 @@ public class DB extends SQLiteOpenHelper{
         }
         return array_list;
     }
-    //account
 
+
+    //collect
+
+    public boolean insertCollection(int account_id, int song_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("account_id", account_id);
+        contentValues.put("song_id", song_id);
+        db.insert(TABLE_COLLECTION, null, contentValues);
+        return true;
+    }
+
+    public Integer deleteCollection(Integer id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_COLLECTION,
+                "id = ? ",
+                new String[]{Integer.toString(id)});
+    }
+
+    public ArrayList<Song> getAllCollection(int account_id) {
+        ArrayList<Song> array_list = new ArrayList<Song>();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from songs where account_id" +
+                "="+account_id+"", null );
+        res.moveToFirst();
+
+        while(res.isAfterLast() == false){
+            array_list.add(new Song(res.getInt(0),res.getString(1),res.getInt(2), res.getString(3), res.getString(4), res.getString(5)));
+            res.moveToNext();
+        }
+        return array_list;
+    }
+
+//account
     public boolean insertAccount(String firstName, String lastName, String phone, String email, String nickname, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -161,17 +210,20 @@ public class DB extends SQLiteOpenHelper{
         return array_list;
     }
     // login
-    public boolean loginAccount(String email, String password) {
+    public int loginAccount(String email, String password) {
+        int result=-1;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from accounts where email='" + email + "' and password='" + password+"'", null);
         //The sort order
         int cursorCount = cursor.getCount();
+
+        if (cursorCount > 0) {
+            cursor.moveToFirst();
+            result=cursor.getInt(0);
+        }
         cursor.close();
         db.close();
-        if (cursorCount > 0) {
-            return true;
-        }
-        return false;
+        return result;
     }
     public boolean checkEmailExist(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -185,5 +237,4 @@ public class DB extends SQLiteOpenHelper{
         }
         return false;
     }
-
 }

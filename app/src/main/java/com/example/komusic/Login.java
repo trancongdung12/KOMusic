@@ -45,10 +45,10 @@ public class Login extends AppCompatActivity {
                 String password = txtPassword.getText().toString();
                 if(password.trim().length() == 0 || email.trim().length() == 0){
                     Toast.makeText(getApplicationContext(), "Input all fields, please!", Toast.LENGTH_SHORT).show();
-                }
-                if(!isValidEmailId(email.trim())){
+                }else if(!isValidEmailId(email.trim())){
                     Toast.makeText(getApplicationContext(), "InValid Email Address.", Toast.LENGTH_SHORT).show();
-                }else if(helper.loginAccount(email, password)){
+                }else if(helper.loginAccount(email, password)!=-1){
+                    homeScreen.putExtra("account_id", helper.loginAccount(email, password));
                     startActivityForResult(homeScreen, 0);
                 }else{
                     Toast.makeText(getApplicationContext(), "Wrong your email or password!",
