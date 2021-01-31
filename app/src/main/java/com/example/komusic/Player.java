@@ -47,7 +47,6 @@ public class Player extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 finish();
-                Toast.makeText(Player.this, "run finish", Toast.LENGTH_SHORT).show();
             }
 
         });

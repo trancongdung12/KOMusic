@@ -24,7 +24,7 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends Fragment implements SongRecyclerviewInterface {
+public class MainActivity extends Fragment {
     View viewFragment;
     private RecyclerView rcvPlaylist;
     private RecyclerView rcvRecentSong;
@@ -55,9 +55,6 @@ public class MainActivity extends Fragment implements SongRecyclerviewInterface 
         int banner[] = {R.drawable.banner1,R.drawable.banner2, R.drawable.banner3, R.drawable.banner4, R.drawable.banner5};
         arrayList = new ArrayList<>();
 
-        //Bottom navigation
-//        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-//        bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         rcvPlaylist.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         rcvPlaylist.setItemAnimator(new DefaultItemAnimator());
@@ -114,13 +111,9 @@ public class MainActivity extends Fragment implements SongRecyclerviewInterface 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //setContentView(R.layout.homepage);
-
-
     }
     private List<Song> getListSong() {
         List<Song> list = helper.getAll();
-        //Toast.makeText(getApplicationContext(),"Hello", Toast.LENGTH_SHORT).show();
         return list;
     }
 
@@ -138,10 +131,4 @@ public class MainActivity extends Fragment implements SongRecyclerviewInterface 
                 "hanh", "Ngày hạnh phúc huhuhuhu");
     }
 
-    @Override
-    public void onItemClick() {
-        Toast.makeText(getActivity(), "run", Toast.LENGTH_SHORT).show();
-        Intent playMusic = new Intent(getActivity(), Player.class);
-        startActivityForResult(playMusic, 0);
-    }
 }

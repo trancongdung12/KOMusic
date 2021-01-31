@@ -220,7 +220,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="4dp"
-            android:text="@string/_1_37"
+            android:text="@string/_00_00"
             android:textColor="#533473"
             android:textSize="10sp"
             app:layout_constraintBottom_toTopOf="@id/seek_bar"
@@ -246,7 +246,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="52dp"
-            android:progress="30"
+            android:progress="0"
             android:theme="@style/SeekBarTheme"
             app:layout_constraintBottom_toTopOf="@+id/btn_next"
             tools:layout_editor_absoluteX="-60dp" />
