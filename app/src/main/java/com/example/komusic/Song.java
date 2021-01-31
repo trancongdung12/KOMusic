@@ -1,5 +1,6 @@
 package com.example.komusic;
 
+
 public class Song {
     private int id;
     private String title;
@@ -20,6 +21,7 @@ public class Song {
         this.link = link;
         this.author = author;
         this.lyric = lyric;
+
     }
 
     public Song() {
@@ -40,7 +42,6 @@ public class Song {
     public void setTitle(String title) {
         this.title = title;
     }
-
     public String getLink() {
         return link;
     }
