@@ -9,14 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KOMusic">
-        <activity android:name=".Register"></activity>
-        <activity android:name=".Search"></activity>
-        <activity android:name=".Login"></activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".CollectionActivity"></activity>
+        <activity android:name=".Profile"></activity>
+        <activity android:name=".Register" />
+        <activity android:name=".Search" />
+        <activity android:name=".Login" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".CollectionActivity" />
         <activity
             android:name=".Player"
-            android:theme="@style/FullScreen"></activity>
+            android:theme="@style/FullScreen" />
         <activity android:name=".IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
