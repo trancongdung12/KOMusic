@@ -5,12 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import android.os.Bundle;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +20,26 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView rcvRecentSong;
     ArrayList<Playlist> arrayList;
     ArrayList<Song> arrayListSong;
+    DB helper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.homepage);
+
+        helper = new DB(getApplicationContext());
+
+        helper.insertSong ("Ngày hạnh phúc", R.drawable.song, "Ngày hạnh phúc",
+                "phúc", "Ngày hạnh phúc huhuhuhu");
+        helper.insertSong ("Ngày hạnh", R.drawable.song, "Ngày hạnh phúc",
+                "phúc", "Ngày hạnh phúc huhuhuhu");
+        helper.insertSong ("Ngày phúc", R.drawable.song, "Ngày hạnh phúc",
+                "phúc", "Ngày hạnh phúc huhuhuhu");
+        helper.insertSong ("Ngày", R.drawable.song, "Ngày hạnh phúc",
+                "phúc", "Ngày hạnh phúc huhuhuhu");
+        helper.insertSong ("Ngày hạnh", R.drawable.song, "Ngày hạnh phúc",
+                "hanh", "Ngày hạnh phúc huhuhuhu");
+
         rcvPlaylist = findViewById(R.id.rycPlaylist);
         int banner[] = {R.drawable.banner1,R.drawable.banner2, R.drawable.banner3, R.drawable.banner4, R.drawable.banner5};
         arrayList = new ArrayList<>();
@@ -69,18 +85,6 @@ public class MainActivity extends AppCompatActivity {
         SongAdapter adapterSing = new SongAdapter(getApplicationContext(), getListSong());
         rcvRecentSong.setAdapter(adapterSing);
     }
-    private List<Song> getListSong() {
-
-        List<Song> list= new ArrayList<>();
-
-        list.add(new Song(R.drawable.song,"Ngày hạnh phúc"));
-        list.add(new Song(R.drawable.song,"Ngày hạnh phúc"));
-        list.add(new Song(R.drawable.song,"Ngày hạnh phúc"));
-        list.add(new Song(R.drawable.song,"Ngày hạnh phúc"));
-        list.add(new Song(R.drawable.song,"Ngày hạnh phúc"));
-
-        return list;
-    }
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -94,4 +98,23 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
             };
+    private List<Song> getListSong() {
+        List<Song> list = helper.getAll();
+        Toast.makeText(getApplicationContext(),"Hello", Toast.LENGTH_SHORT).show();
+        return list;
+    }
+
+
+    private void render (){
+        helper.insertSong ("Ngày hạnh phúc", R.drawable.song, "Ngày hạnh phúc",
+                "phúc", "Ngày hạnh phúc huhuhuhu");
+        helper.insertSong ("Ngày hạnh", R.drawable.song, "Ngày hạnh phúc",
+                "phúc", "Ngày hạnh phúc huhuhuhu");
+        helper.insertSong ("Ngày phúc", R.drawable.song, "Ngày hạnh phúc",
+                "phúc", "Ngày hạnh phúc huhuhuhu");
+        helper.insertSong ("Ngày", R.drawable.song, "Ngày hạnh phúc",
+                "phúc", "Ngày hạnh phúc huhuhuhu");
+        helper.insertSong ("Ngày hạnh", R.drawable.song, "Ngày hạnh phúc",
+                "hanh", "Ngày hạnh phúc huhuhuhu");
+    }
 }

@@ -10,8 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KOMusic">
         <activity android:name=".Register"></activity>
-        <activity android:name=".Login" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".Search"></activity>
+        <activity android:name=".Login"></activity>
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
