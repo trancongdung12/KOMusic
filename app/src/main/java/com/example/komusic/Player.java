@@ -46,11 +46,16 @@ public class Player extends AppCompatActivity {
         ImageView next = (ImageView) findViewById(R.id.back_screen);
         next.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent myIntent = new Intent(view.getContext(), MainActivity.class);
-                startActivityForResult(myIntent, 0);
+                finish();
+                Toast.makeText(Player.this, "run finish", Toast.LENGTH_SHORT).show();
             }
 
         });
+        //Get Value From Intent
+        Intent intent = getIntent();
+        String title = intent.getStringExtra("title");
+        TextView textView = findViewById(R.id.txt_artist);
+        textView.setText(title);
 
         //Play music
         playerPositon = findViewById(R.id.player_position);

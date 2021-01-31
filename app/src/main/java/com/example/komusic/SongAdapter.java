@@ -1,6 +1,7 @@
 package com.example.komusic;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +16,17 @@ import java.util.List;
 
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.CategoryHolder> {
 
-    private SongRecyclerviewInterface songRecyclerviewInterface;
+    private Context context;
     private  List<Song> mSongs;
-
-    public SongAdapter(List<Song> mSongs, SongRecyclerviewInterface songRecyclerviewInterface) {
+    public SongAdapter(List<Song> mSongs, Context context) {
         this.mSongs = mSongs;
-        this.songRecyclerviewInterface = songRecyclerviewInterface;
+        this.context = context;
     }
 
     @NonNull
     @Override
     public CategoryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from((Context) songRecyclerviewInterface).inflate(R.layout.recentsong, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.recentsong, parent, false);
         return new CategoryHolder(view);
     }
 
@@ -34,6 +34,15 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.CategoryHolder
     public void onBindViewHolder(@NonNull CategoryHolder holder, int position) {
         holder.img_view.setImageResource(mSongs.get(position).getImage());
         holder.tx_view.setText(mSongs.get(position).getTitle());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent playScreen = new Intent(context, Player.class);
+                playScreen.putExtra("title",mSongs.get(position).getTitle());
+                context.startActivity(playScreen);
+            }
+        });
     }
 
     @Override
@@ -52,12 +61,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.CategoryHolder
 
             img_view = itemView.findViewById(R.id.img_category);
             tx_view = itemView.findViewById(R.id.title);
-           itemView.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                   songRecyclerviewInterface.onItemClick();
-               }
-           });
+
 
         }
     }

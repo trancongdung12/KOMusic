@@ -2,14 +2,17 @@ package com.example.komusic;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import android.os.Bundle;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import android.content.Intent;
@@ -21,19 +24,21 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements SongRecyclerviewInterface {
+public class MainActivity extends Fragment implements SongRecyclerviewInterface {
+    View viewFragment;
     private RecyclerView rcvPlaylist;
     private RecyclerView rcvRecentSong;
     ArrayList<Playlist> arrayList;
     ArrayList<Song> arrayListSong;
     DB helper;
     private SongRecyclerviewInterface songRecyclerviewInterface;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.homepage);
 
-        helper = new DB(getApplicationContext());
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+// Inflate the layout for this fragment
+        viewFragment = inflater.inflate(R.layout.homepage, container, false);
+        helper = new DB(getActivity());
 
         helper.insertSong ("Ngày hạnh phúc", R.drawable.song, "Ngày hạnh phúc",
                 "phúc", "Ngày hạnh phúc huhuhuhu");
@@ -46,15 +51,15 @@ public class MainActivity extends AppCompatActivity implements SongRecyclerviewI
         helper.insertSong ("Ngày hạnh", R.drawable.song, "Ngày hạnh phúc",
                 "hanh", "Ngày hạnh phúc huhuhuhu");
 
-        rcvPlaylist = findViewById(R.id.rycPlaylist);
+        rcvPlaylist = viewFragment.findViewById(R.id.rycPlaylist);
         int banner[] = {R.drawable.banner1,R.drawable.banner2, R.drawable.banner3, R.drawable.banner4, R.drawable.banner5};
         arrayList = new ArrayList<>();
 
         //Bottom navigation
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-        bottomNav.setOnNavigationItemSelectedListener(navListener);
+//        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+//        bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        rcvPlaylist.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false));
+        rcvPlaylist.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         rcvPlaylist.setItemAnimator(new DefaultItemAnimator());
 
         for (int i = 0; i < banner.length; i++) {
@@ -65,36 +70,36 @@ public class MainActivity extends AppCompatActivity implements SongRecyclerviewI
             arrayList.add(itemModel);
         }
 
-        PlaylistAdapter adapter = new PlaylistAdapter(getApplicationContext(), arrayList);
+        PlaylistAdapter adapter = new PlaylistAdapter(getActivity(), arrayList);
         rcvPlaylist.setAdapter(adapter);
 
 
         //recent song
 
-        rcvRecentSong = findViewById(R.id.rycRecentSong);
-        rcvRecentSong.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false));
+        rcvRecentSong = viewFragment.findViewById(R.id.rycRecentSong);
+        rcvRecentSong.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         rcvRecentSong.setItemAnimator(new DefaultItemAnimator());
-        SongAdapter adapterSong = new SongAdapter( getListSong(), this);
+        SongAdapter adapterSong = new SongAdapter( getListSong(), getActivity());
         rcvRecentSong.setAdapter(adapterSong);
 
         //made for you
-        rcvRecentSong = findViewById(R.id.rycMadeForYou);
-        rcvRecentSong.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false));
+        rcvRecentSong = viewFragment.findViewById(R.id.rycMadeForYou);
+        rcvRecentSong.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         rcvRecentSong.setItemAnimator(new DefaultItemAnimator());
-        SongAdapter adapterForYou = new SongAdapter( getListSong(), this);
+        SongAdapter adapterForYou = new SongAdapter( getListSong(), getActivity());
         rcvRecentSong.setAdapter(adapterForYou);
 
         //singer
-        rcvRecentSong = findViewById(R.id.rycSinger);
-        rcvRecentSong.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false));
+        rcvRecentSong = viewFragment.findViewById(R.id.rycSinger);
+        rcvRecentSong.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         rcvRecentSong.setItemAnimator(new DefaultItemAnimator());
-        SongAdapter adapterSinger = new SongAdapter( getListSong(), this);
+        SongAdapter adapterSinger = new SongAdapter( getListSong(), getActivity());
         rcvRecentSong.setAdapter(adapterSinger);
 
 
         //Demonstrate
 
-        ImageView next = (ImageView) findViewById(R.id.btn_temp);
+        ImageView next = (ImageView) viewFragment.findViewById(R.id.btn_temp);
         next.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent myIntent = new Intent(view.getContext(), Player.class);
@@ -102,28 +107,17 @@ public class MainActivity extends AppCompatActivity implements SongRecyclerviewI
             }
 
         });
+        return viewFragment;
     }
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    switch (item.getItemId()){
-                        case R.id.nav_home:
-                            Intent home = new Intent(MainActivity.this, MainActivity.class);
-                            startActivityForResult(home, 0);
-                            break;
-                        case R.id.nav_explore:
-                            Intent explore = new Intent(MainActivity.this, Player.class);
-                            startActivityForResult(explore, 0);
-                            break;
-                        case R.id.nav_collection:
-                            Intent collection = new Intent(MainActivity.this, CollectionActivity.class);
-                            startActivityForResult(collection, 0);
-                            break;
-                    }
-                    return true;
-                }
-            };
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //setContentView(R.layout.homepage);
+
+
+    }
     private List<Song> getListSong() {
         List<Song> list = helper.getAll();
         //Toast.makeText(getApplicationContext(),"Hello", Toast.LENGTH_SHORT).show();
@@ -146,8 +140,8 @@ public class MainActivity extends AppCompatActivity implements SongRecyclerviewI
 
     @Override
     public void onItemClick() {
-        Toast.makeText(this, "run", Toast.LENGTH_SHORT).show();
-        Intent playMusic = new Intent(this, Player.class);
+        Toast.makeText(getActivity(), "run", Toast.LENGTH_SHORT).show();
+        Intent playMusic = new Intent(getActivity(), Player.class);
         startActivityForResult(playMusic, 0);
     }
 }

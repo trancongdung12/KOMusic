@@ -12,7 +12,7 @@
         <activity android:name=".Register"></activity>
         <activity android:name=".Search"></activity>
         <activity android:name=".Login"></activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".Navigation.HandleNavigation"></activity>
         <activity android:name=".CollectionActivity"></activity>
         <activity
             android:name=".Player"

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.komusic.Navigation.HandleNavigation;
+
 public class Login extends AppCompatActivity {
 
     @Override
@@ -14,12 +16,13 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Button login = (Button) findViewById(R.id.btnLogin);
-        Intent homeScreen = new Intent(Login.this, MainActivity.class);
+
         login.setOnClickListener( new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                startActivityForResult(homeScreen, 0);
+                Intent homeScreen = new Intent(Login.this, HandleNavigation.class);
+                startActivity(homeScreen);
             }
         });
     }
