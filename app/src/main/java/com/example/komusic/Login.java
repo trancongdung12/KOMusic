@@ -44,7 +44,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent homeScreen = new Intent(Login.this, HandleNavigation.class);
-                startActivity(homeScreen);
+
                 String email = txtEmail.getText().toString();
                 String password = txtPassword.getText().toString();
                 if(password.trim().length() == 0 || email.trim().length() == 0){

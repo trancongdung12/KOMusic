@@ -216,10 +216,21 @@ public class DB extends SQLiteOpenHelper{
         return true;
     }
 
-    public Cursor getAccount(int id) {
+    public Account getAccount(int id) {
+        ArrayList<Account> array_list = new ArrayList<Account>();
+
+        //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("select * from accounts where id=" + id + "", null);
-        return res;
+        res.moveToFirst();
+
+        while(res.isAfterLast() == false){
+            array_list.add(new Account(res.getInt(0), res.getString(1),
+                    res.getString(2), res.getString(3),
+                    res.getString(4), res.getString(5), res.getString(6)));
+            res.moveToNext();
+        }
+        return array_list.get(0);
     }
 
     public boolean updateAccount(Integer id, String firstName, String lastName, String phone, String email, String nickname, String password) {

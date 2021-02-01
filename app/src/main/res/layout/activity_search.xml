@@ -14,7 +14,7 @@
         android:paddingStart="10dp"
         android:paddingTop="20dp"
         android:paddingBottom="10dp"
-        android:text="Search"
+        android:text="Tìm kiếm"
         android:textColor="@color/colorTint"
         android:textSize="25dp"
         android:textStyle="bold"
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/black"
             android:drawableStart="@drawable/ic_baseline_search_24"
-            android:hint="Search"
+            android:hint="Tìm kiếm ..."
             android:textColor="@color/black"
             android:textColorHint="@color/colorHint" />
     </LinearLayout>
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:padding="10dp"
-        android:text="Browse All"
+        android:text="Danh mục"
         android:textSize="18dp"
         android:textStyle="bold"
         android:textColor="@color/black"
