@@ -21,7 +21,7 @@ public class ViewPageAdapter extends FragmentStatePagerAdapter {
         switch (position){
             case 0:
                 return new MainActivity();
-                        case 1:
+            case 1:
                 return new Search();
             case 2:
                 return new CollectionActivity();
