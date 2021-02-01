@@ -28,7 +28,7 @@ public class DB extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(
                 "create table songs " +
-                        "(id integer primary key, title text,image int,link text, author text,lyric text)"
+                        "(id integer primary key, title text,image int,link int, author text,lyric text)"
         );
         db.execSQL(
                 "create table accounts " +
@@ -44,7 +44,7 @@ public class DB extends SQLiteOpenHelper{
         db.execSQL(drop_accounts_table);
         onCreate(db);
     }
-    public boolean insertSong (String title, int image, String link,
+    public boolean insertSong (String title, int image, int link,
                                String author, String lyric) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -66,7 +66,7 @@ public class DB extends SQLiteOpenHelper{
         res.moveToFirst();
 
         while(res.isAfterLast() == false){
-            array_list.add(new Song(res.getInt(0),res.getString(1),res.getInt(2), res.getString(3), res.getString(4), res.getString(5)));
+            array_list.add(new Song(res.getInt(0),res.getString(1),res.getInt(2), res.getInt(3), res.getString(4), res.getString(5)));
             res.moveToNext();
         }
         return array_list.get(0);
@@ -78,7 +78,7 @@ public class DB extends SQLiteOpenHelper{
         return numRows;
     }
 
-    public boolean updateSong (Integer id, String title, int image, String link,
+    public boolean updateSong (Integer id, String title, int image, int link,
                                String author, String lyric) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -107,7 +107,7 @@ public class DB extends SQLiteOpenHelper{
         res.moveToFirst();
 
         while(res.isAfterLast() == false){
-            array_list.add(new Song(res.getInt(0),res.getString(1),res.getInt(2), res.getString(3), res.getString(4), res.getString(5)));
+            array_list.add(new Song(res.getInt(0),res.getString(1),res.getInt(2), res.getInt(3), res.getString(4), res.getString(5)));
             res.moveToNext();
         }
         return array_list;

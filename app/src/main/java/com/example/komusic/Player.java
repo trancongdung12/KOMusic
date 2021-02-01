@@ -42,8 +42,11 @@ public class Player extends AppCompatActivity {
     MediaPlayer mediaPlayer;
     Handler handler = new Handler();
     Runnable runnable;
+
+
     DB helper;
     Context context;
+    Song song;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +56,7 @@ public class Player extends AppCompatActivity {
         //Get Value From Intent
         Intent intent = getIntent();
         String id = intent.getStringExtra("id");
-        Toast.makeText(this, id, Toast.LENGTH_SHORT).show();
-        Song song = helper.getData(Integer.parseInt(id));
+        song = helper.getData(Integer.parseInt(id));
 
         lyrics.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +77,7 @@ public class Player extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 finish();
+                mediaPlayer.stop();
             }
 
         });
@@ -84,6 +87,7 @@ public class Player extends AppCompatActivity {
         TextView singer = findViewById(R.id.txt_artist);
         singer.setText(song.getAuthor());
         ImageView img = findViewById(R.id.img_song);
+        img.setImageResource(song.getImage());
 
         //Play music
         playerPositon = findViewById(R.id.player_position);
@@ -94,7 +98,8 @@ public class Player extends AppCompatActivity {
         btnPrev = findViewById(R.id.btn_prev);
         btnNext = findViewById(R.id.btn_next);
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.anhkhongthathu);
+
+        mediaPlayer = MediaPlayer.create(this, song.getLink());
 
         runnable = new Runnable() {
             @Override
@@ -143,16 +148,18 @@ public class Player extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int currentPosition = mediaPlayer.getCurrentPosition();
-
-                int duration = mediaPlayer.getDuration();
-
-                if(mediaPlayer.isPlaying() && duration != currentPosition){
-                    currentPosition = currentPosition + 5000;
-
-                    playerPositon.setText(convertFormat(currentPosition));
-                    mediaPlayer.seekTo(currentPosition);
-                }
+               // Song song1 = helper.getData(Integer.parseInt(id));
+                Toast.makeText(context, "test", Toast.LENGTH_SHORT).show();
+//                int currentPosition = mediaPlayer.getCurrentPosition();
+//
+//                int duration = mediaPlayer.getDuration();
+//
+//                if(mediaPlayer.isPlaying() && duration != currentPosition){
+//                    currentPosition = currentPosition + 5000;
+//
+//                    playerPositon.setText(convertFormat(currentPosition));
+//                    mediaPlayer.seekTo(currentPosition);
+//                }
             }
         });
 

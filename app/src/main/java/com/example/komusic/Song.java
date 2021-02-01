@@ -5,7 +5,7 @@ public class Song {
     private int id;
     private String title;
     private int image;
-    private String link;
+    private int link;
     private String author;
     private String lyric;
 
@@ -13,7 +13,7 @@ public class Song {
         this.id = id;
         this.title = title;
     }
-    public Song(int id, String title, int image, String link,
+    public Song(int id, String title, int image, int link,
                 String author, String lyric) {
         this.id = id;
         this.title = title;
@@ -42,11 +42,11 @@ public class Song {
     public void setTitle(String title) {
         this.title = title;
     }
-    public String getLink() {
+    public int getLink() {
         return link;
     }
 
-    public void setLink(String link) {
+    public void setLink(int link) {
         this.link = link;
     }
 

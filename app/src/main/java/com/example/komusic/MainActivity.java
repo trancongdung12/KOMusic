@@ -111,8 +111,8 @@ public class MainActivity extends Fragment {
     }
 
         private void renderSong (){
-        helper.insertSong ("Khác biệt to lớn", R.drawable.khacbiettolon, "Ngày hạnh phúc",
-                "phúc", "[Liz:]\n" +
+        helper.insertSong ("Khác biệt to lớn", R.drawable.khacbiettolon, R.raw.khacbiettolon,
+                "Trịnh Thăng Bình", "[Liz:]\n" +
                         "Đoạn đường mới người bước bên anh không là em nữa\n" +
                         "Anh đã cảm thấy thoải mái chút nào chưa\n" +
                         "Từng lời hứa mình nói khi xưa không cần thiết nữa\n" +
@@ -165,13 +165,13 @@ public class MainActivity extends Fragment {
                         "Anh đã cố gắng níu kéo nhưng lại thôi\n" +
                         "Ngày em nói giờ chúng ta có khác biệt quá lớn\n" +
                         "Là do em cần ai đó hơn");
-        helper.insertSong ("Ngày hạnh", R.drawable.song, "Ngày hạnh phúc",
+        helper.insertSong ("Ngày hạnh", R.drawable.song, R.raw.anhkhongthathu,
                 "phúc", "Ngày hạnh phúc huhuhuhu");
-        helper.insertSong ("Ngày phúc", R.drawable.song, "Ngày hạnh phúc",
+        helper.insertSong ("Ngày phúc", R.drawable.song,  R.raw.anhkhongthathu,
                 "phúc", "Ngày hạnh phúc huhuhuhu");
-        helper.insertSong ("Ngày", R.drawable.song, "Ngày hạnh phúc",
+        helper.insertSong ("Ngày", R.drawable.song,  R.raw.anhkhongthathu,
                 "phúc", "Ngày hạnh phúc huhuhuhu");
-        helper.insertSong ("Ngày hạnh", R.drawable.song, "Ngày hạnh phúc",
+        helper.insertSong ("Ngày hạnh", R.drawable.song,  R.raw.anhkhongthathu,
                 "hanh", "Ngày hạnh phúc huhuhuhu");
     }
 }
