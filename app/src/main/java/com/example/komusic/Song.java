@@ -1,5 +1,6 @@
 package com.example.komusic;
 
+
 public class Song {
     private int id;
     private String title;
@@ -8,10 +9,8 @@ public class Song {
     private String author;
     private String lyric;
 
-    public Song(int id, String title) {
-        this.id = id;
-        this.title = title;
-    }
+
+
     public Song(int id, String title, int image, String link,
                 String author, String lyric) {
         this.id = id;
@@ -20,6 +19,7 @@ public class Song {
         this.link = link;
         this.author = author;
         this.lyric = lyric;
+
     }
 
     public Song() {
