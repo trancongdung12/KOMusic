@@ -42,8 +42,12 @@ public class Player extends AppCompatActivity {
     MediaPlayer mediaPlayer;
     Handler handler = new Handler();
     Runnable runnable;
+    ImageView heartBorder;
+    ImageView heartBold;
+
     DB helper;
     Context context;
+    Song song;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +57,7 @@ public class Player extends AppCompatActivity {
         //Get Value From Intent
         Intent intent = getIntent();
         String id = intent.getStringExtra("id");
-        Toast.makeText(this, id, Toast.LENGTH_SHORT).show();
-        Song song = helper.getData(Integer.parseInt(id));
+        song = helper.getData(Integer.parseInt(id));
 
         lyrics.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +65,6 @@ public class Player extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 String myMessage = song.getLyric();
                 bundle.putString("message", myMessage );
-
                 BottomSheetFull bottomSheetFull = new BottomSheetFull();
                 bottomSheetFull.setArguments(bundle);
                 bottomSheetFull.show(getSupportFragmentManager(), bottomSheetFull.getTag());
@@ -75,6 +77,7 @@ public class Player extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 finish();
+                mediaPlayer.stop();
             }
 
         });
@@ -84,6 +87,7 @@ public class Player extends AppCompatActivity {
         TextView singer = findViewById(R.id.txt_artist);
         singer.setText(song.getAuthor());
         ImageView img = findViewById(R.id.img_song);
+        img.setImageResource(song.getImage());
 
         //Play music
         playerPositon = findViewById(R.id.player_position);
@@ -93,8 +97,38 @@ public class Player extends AppCompatActivity {
         btnPause = findViewById(R.id.btn_pause);
         btnPrev = findViewById(R.id.btn_prev);
         btnNext = findViewById(R.id.btn_next);
+        // set collection
+        heartBorder = findViewById(R.id.heart_border);
+        heartBold = findViewById(R.id.heart_bold);
+        //
+        if(helper.checkExistCollection(Account.curId, song.getId())){
+            heartBorder.setVisibility(View.GONE);
+            heartBold.setVisibility(View.VISIBLE);
+        }
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.anhkhongthathu);
+        heartBorder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "sdfsdfdsfd your email or password!",
+                        Toast.LENGTH_LONG).show();
+                    heartBorder.setVisibility(View.GONE);
+                    heartBold.setVisibility(View.VISIBLE);
+                    helper.insertCollection(Account.curId, song.getId());
+            }
+        });
+        heartBold.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Wrong your dfdsfdsfds or password!",
+                        Toast.LENGTH_LONG).show();
+                    heartBorder.setVisibility(View.VISIBLE);
+                    heartBold.setVisibility(View.GONE);
+                    helper.deleteCollection(Account.curId, song.getId());
+            }
+        });
+
+
+        mediaPlayer = MediaPlayer.create(this, song.getLink());
 
         runnable = new Runnable() {
             @Override
@@ -143,16 +177,18 @@ public class Player extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int currentPosition = mediaPlayer.getCurrentPosition();
-
-                int duration = mediaPlayer.getDuration();
-
-                if(mediaPlayer.isPlaying() && duration != currentPosition){
-                    currentPosition = currentPosition + 5000;
-
-                    playerPositon.setText(convertFormat(currentPosition));
-                    mediaPlayer.seekTo(currentPosition);
-                }
+               // Song song1 = helper.getData(Integer.parseInt(id));
+                Toast.makeText(context, "test", Toast.LENGTH_SHORT).show();
+//                int currentPosition = mediaPlayer.getCurrentPosition();
+//
+//                int duration = mediaPlayer.getDuration();
+//
+//                if(mediaPlayer.isPlaying() && duration != currentPosition){
+//                    currentPosition = currentPosition + 5000;
+//
+//                    playerPositon.setText(convertFormat(currentPosition));
+//                    mediaPlayer.seekTo(currentPosition);
+//                }
             }
         });
 

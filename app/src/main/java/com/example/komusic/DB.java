@@ -28,7 +28,7 @@ public class DB extends SQLiteOpenHelper{
 
         db.execSQL(
                 "create table songs " +
-                        "(id integer primary key, title text,image int,link text, author text,lyric text)"
+                        "(id integer primary key, title text,image int,link int, author text,lyric text)"
         );
         db.execSQL(
                 "create table accounts " +
@@ -57,7 +57,7 @@ public class DB extends SQLiteOpenHelper{
         db.execSQL(drop_accounts_table);
         onCreate(db);
     }
-    public boolean insertSong (String title, int image, String link,
+    public boolean insertSong (String title, int image, int link,
                                String author, String lyric) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -79,7 +79,7 @@ public class DB extends SQLiteOpenHelper{
         res.moveToFirst();
 
         while(res.isAfterLast() == false){
-            array_list.add(new Song(res.getInt(0),res.getString(1),res.getInt(2), res.getString(3), res.getString(4), res.getString(5)));
+            array_list.add(new Song(res.getInt(0),res.getString(1),res.getInt(2), res.getInt(3), res.getString(4), res.getString(5)));
             res.moveToNext();
         }
         return array_list.get(0);
@@ -91,7 +91,7 @@ public class DB extends SQLiteOpenHelper{
         return numRows;
     }
 
-    public boolean updateSong (Integer id, String title, int image, String link,
+    public boolean updateSong (Integer id, String title, int image, int link,
                                String author, String lyric) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -120,7 +120,21 @@ public class DB extends SQLiteOpenHelper{
         res.moveToFirst();
 
         while(res.isAfterLast() == false){
-            array_list.add(new Song(res.getInt(0),res.getString(1),res.getInt(2), res.getString(3), res.getString(4), res.getString(5)));
+            array_list.add(new Song(res.getInt(0),res.getString(1),res.getInt(2), res.getInt(3), res.getString(4), res.getString(5)));
+            res.moveToNext();
+        }
+        return array_list;
+    }
+    public ArrayList<Song> getSearchSong(String input) {
+        ArrayList<Song> array_list = new ArrayList<Song>();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "SELECT * FROM songs WHERE title like '%"+input+"%' or author like '%"+input+"%'", null );
+        res.moveToFirst();
+
+        while(res.isAfterLast() == false){
+            array_list.add(new Song(res.getInt(0),res.getString(1),res.getInt(2), res.getInt(3), res.getString(4), res.getString(5)));
             res.moveToNext();
         }
         return array_list;
@@ -128,6 +142,18 @@ public class DB extends SQLiteOpenHelper{
 
     //collect
 
+    public boolean checkExistCollection(int account_id, int song_id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from collections where song_id=" + song_id + " and account_id="+account_id+"", null);
+        //The sort order
+        int cursorCount = cursor.getCount();
+        cursor.close();
+        db.close();
+        if (cursorCount > 0) {
+            return true;
+        }
+        return false;
+    }
     public boolean insertCollection(int account_id, int song_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -137,11 +163,13 @@ public class DB extends SQLiteOpenHelper{
         return true;
     }
 
-    public Integer deleteCollection(Integer id) {
+    public Integer deleteCollection(int account_id, int song_id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_COLLECTION,
-                "id = ? ",
-                new String[]{Integer.toString(id)});
+        Cursor cursor = db.rawQuery("DELETE FROM collections\n" +
+                "WHERE account_id="+account_id+" and song_id="+ song_id+ "", null);
+        cursor.close();
+        db.close();
+        return song_id;
     }
 
     public ArrayList<Song> getAllCollection(int account_id) {
@@ -149,12 +177,26 @@ public class DB extends SQLiteOpenHelper{
 
         //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from songs where account_id" +
-                "="+account_id+"", null );
+
+
+
+        Cursor res =  db.rawQuery( "SELECT\n" +
+                "\tsongs.id,\n" +
+                "\tsongs.title,\n" +
+                "\tsongs.image,\n" +
+                "\tsongs.link,\n" +
+                "\tsongs.author,\n" +
+                "\tsongs.lyric\n" +
+                "FROM\n" +
+                "\tcollections\n" +
+                "INNER JOIN songs ON collections.song_id = songs.id\n" +
+                "WHERE\n" +
+                "\t collections.account_id="+
+                account_id +";", null );
         res.moveToFirst();
 
         while(res.isAfterLast() == false){
-            array_list.add(new Song(res.getInt(0),res.getString(1),res.getInt(2), res.getString(3), res.getString(4), res.getString(5)));
+            array_list.add(new Song(res.getInt(0),res.getString(1),res.getInt(2), res.getInt(3), res.getString(4), res.getString(5)));
             res.moveToNext();
         }
         return array_list;

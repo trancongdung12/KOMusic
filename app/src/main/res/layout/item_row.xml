@@ -50,14 +50,15 @@
                 app:layout_constraintStart_toEndOf="@+id/img_song"
                 app:layout_constraintTop_toBottomOf="@+id/txt_title" />
 
+
             <ImageView
-                android:id="@+id/btn_liked"
+                android:id="@+id/btn_heart_bold"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="35dp"
                 android:foregroundGravity="center_vertical"
-                android:src="@drawable/ic_heart_border"
+                android:src="@drawable/ic_heart"
                 app:layout_constraintEnd_toEndOf="@id/btn_more"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -68,7 +69,7 @@
                 android:foregroundGravity="center_vertical"
                 android:src="@drawable/ic_more_ver"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/btn_liked"
+                app:layout_constraintStart_toEndOf="@id/btn_heart_bold"
                 tools:layout_editor_absoluteY="30dp" />
 
 

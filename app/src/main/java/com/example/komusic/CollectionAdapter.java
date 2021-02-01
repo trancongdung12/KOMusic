@@ -2,7 +2,6 @@ package com.example.komusic;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class SongAdapter extends RecyclerView.Adapter<SongAdapter.CategoryHolder> {
+public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.CategoryHolder> {
 
     private Context context;
     private  List<Song> mSongs;
-    public SongAdapter(List<Song> mSongs, Context context) {
+    public CollectionAdapter(List<Song> mSongs, Context context) {
         this.mSongs = mSongs;
         this.context = context;
     }
@@ -28,14 +27,15 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.CategoryHolder
     @NonNull
     @Override
     public CategoryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.recentsong, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_row, parent, false);
         return new CategoryHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CategoryHolder holder, int position) {
         holder.img_view.setImageResource(mSongs.get(position).getImage());
-        holder.tx_view.setText(mSongs.get(position).getTitle());
+        holder.txt_title.setText(mSongs.get(position).getTitle());
+        holder.txt_artist.setText(mSongs.get(position).getAuthor());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,13 +57,18 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.CategoryHolder
 
     public class CategoryHolder extends RecyclerView.ViewHolder{
         private ImageView img_view;
-        private TextView tx_view;
+        private TextView txt_title;
+        private TextView txt_artist;
 
         public CategoryHolder(@NonNull View itemView) {
             super(itemView);
 
-            img_view = itemView.findViewById(R.id.img_category);
-            tx_view = itemView.findViewById(R.id.title);
+            img_view = itemView.findViewById(R.id.img_song);
+            txt_title = itemView.findViewById(R.id.txt_title);
+            txt_artist = itemView.findViewById(R.id.txt_artist);
+
+
+
 
         }
     }

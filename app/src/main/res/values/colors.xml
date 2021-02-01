@@ -18,5 +18,7 @@
     <color name="colorStroke">#bdbdbd</color>
     <color name="colorHint">#ececec</color>
     <color name="colorTint">#533473</color>
+    <color name="colorBgrLight">#F49C73</color>
+    <color name="colorTagBgr">#1E1E1E</color>
 
 </resources>

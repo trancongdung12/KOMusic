@@ -1,6 +1,7 @@
 package com.example.komusic;
 
 public class Account {
+    public  static int curId;
     private int id;
     private String firstName;
     private String lastName;
@@ -11,9 +12,13 @@ public class Account {
 
     public Account() {
     }
-
+    public Account(int id) {
+        this.id=id;
+        curId=id;
+    }
     public Account(int id, String firstName, String lastName, String phone, String email, String nickname, String password) {
         this.id = id;
+        curId = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;

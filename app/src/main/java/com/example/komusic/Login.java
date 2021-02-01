@@ -20,6 +20,7 @@ public class Login extends AppCompatActivity {
     EditText txtEmail;
     EditText txtPassword;
     Button btnMoveToSignUp;
+    Account acc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,12 +51,12 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Input all fields, please!", Toast.LENGTH_SHORT).show();
                 }else if(!isValidEmailId(email.trim())){
                     Toast.makeText(getApplicationContext(), "InValid Email Address.", Toast.LENGTH_SHORT).show();
-                }else if(helper.loginAccount(email, password)!=-1){
-                    homeScreen.putExtra("account_id", helper.loginAccount(email, password));
-                    startActivityForResult(homeScreen, 0);
-                }else{
+                }else if(helper.loginAccount(email, password)==-1){
                     Toast.makeText(getApplicationContext(), "Wrong your email or password!",
                             Toast.LENGTH_LONG).show();
+                }else{
+                    acc = new Account(helper.loginAccount(email, password));
+                    startActivityForResult(homeScreen, 0);
                 }
             }
         });
