@@ -72,6 +72,27 @@
             android:textSize="18sp"
             app:layout_constraintTop_toBottomOf="@+id/txt_title" />
 
+        <ImageView
+            android:id="@+id/heart_border"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_now_playing"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txt_now_playing"
+            app:srcCompat="@drawable/ic_heart_border" />
+
+        <ImageView
+            android:id="@+id/heart_bold"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_now_playing"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txt_now_playing"
+            app:srcCompat="@drawable/ic_heart" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

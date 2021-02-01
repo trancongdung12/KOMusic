@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class Search extends Fragment {
+public class Profile extends Fragment {
     View viewFragment;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -17,7 +17,7 @@ public class Search extends Fragment {
     }
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        viewFragment = inflater.inflate(R.layout.activity_search, container, false);
+        viewFragment = inflater.inflate(R.layout.activity_profile, container, false);
         return viewFragment;
     }
 }
